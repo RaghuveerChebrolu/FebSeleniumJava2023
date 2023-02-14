@@ -27,12 +27,10 @@ public class enumSwitch {
 			case Thu:
 				System.out.println("Thursday");
 				break;
-			case Fri:
-				System.out.println("Friday");
-				break;
-			case Sat:
-				System.out.println("Saturday");
-				break;
+			/*
+			 * case Fri: System.out.println("Friday"); break; case Sat:
+			 * System.out.println("Saturday"); break;
+			 */
 			default :
 				System.out.println("default block is executed");
 				break;
