@@ -13,7 +13,7 @@ public class FirstSelenniumProgram {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		System.out.println("inside main method");
-		WebDriverManager.iedriver().setup();
+		//WebDriverManager.iedriver().setup();
 		WebDriver driver = new ChromeDriver();
 		// WebDriver driver = new EdgeDriver();
 		// WebDriver driver = new InternetExplorerDriver();
