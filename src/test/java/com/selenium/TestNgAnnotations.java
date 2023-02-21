@@ -11,27 +11,40 @@ import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.AfterSuite;
 
 public class TestNgAnnotations {
-  @Test
+  @Test(priority=-3)
   public void testcase1() {
-	  System.out.println("inside tes case1");
+	  System.out.println("inside testcase1");
   }
   
-  
-  @Test
+  @Test()
   public void testcase2() {
-	  System.out.println("inside tes case2");
+	  System.out.println("inside testcase2");
   }
   
-  @Test
+  @Test(priority=3)
   public void testcase() {
-	  System.out.println("inside tes case");
+	  System.out.println("inside testcase");
   }
   
-  @Test
+  @Test(priority=-7)
   public void testcase4() {
-	  System.out.println("inside tes case4");
+	  System.out.println("inside testcase4");
   }
   
+  @Test(priority=9)
+  public void testcase5() {
+	  System.out.println("inside testcase5");
+  }
+  
+  @Test()
+  public void testCase6() {
+	  System.out.println("inside testcase6");
+  }
+  
+  @Test(priority=3)
+  public void testCase7() {
+	  System.out.println("inside testcase7");
+  }
   
   
   @BeforeMethod

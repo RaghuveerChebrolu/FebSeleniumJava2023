@@ -2,6 +2,8 @@ package com.selenium;
 
 import org.testng.annotations.Test;
 
+import com.pages.GmoOnlineAppPOM;
+import com.utility.Constants;
 import com.utility.Library;
 
 import org.testng.annotations.BeforeMethod;
@@ -9,23 +11,42 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
+import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.AfterSuite;
 
-public class ValidateGmoOnileApp {
-  @Test
-  public void testcase1() {
+public class ValidateGmoOnileApp extends Library {
+  @Test(priority=1)
+  public void ValidateGmoOnlineTitle() {
 	  System.out.println("inside tes case1");
+	  driver.get(Library.objProperties.getProperty("GmoOnlineURL"));
+	  driver.manage().window().maximize();
+	  String title = Library.driver.getTitle();
+	  System.out.println("title:"+title);
+	  Assert.assertEquals(title, "Welcome to Green Mountain Outpost");
   }
   
   
-  @Test
-  public void testcase2() {
+  @Test(dependsOnMethods= {"ValidateGmoOnlineTitle"},priority=2)
+  public void VerifyEnterGmoOnline() {
+	  driver.findElement(GmoOnlineAppPOM.EntergmoOnline).click();
+	  driver.manage().timeouts().pageLoadTimeout(30, TimeUnit.SECONDS);
+	  driver.findElement(GmoOnlineAppPOM.QTY_Glasses).clear();
+	  driver.findElement(GmoOnlineAppPOM.QTY_Glasses).sendKeys(Constants.QTY_Glasses);
+	  
+  }
+  
+  
+  @Test(priority=3,dependsOnMethods= {"ValidateGmoOnlineTitle","VerifyEnterGmoOnline"})
+  public void ValidatePlaceOrderPage() {
 	  System.out.println("inside tes case2");
+	  driver.findElement(GmoOnlineAppPOM.EntergmoOnline).click();
+	  driver.manage().timeouts().pageLoadTimeout(30, TimeUnit.SECONDS);
   }
   
   @Test
@@ -33,8 +54,13 @@ public class ValidateGmoOnileApp {
 	  System.out.println("inside tes case");
   }
   
-  @Test
+  @Test(invocationCount=5)
   public void testcase4() {
+	  System.out.println("inside tes case4");
+  }
+  
+  @Test(invocationCount=8)
+  public void testcase7() {
 	  System.out.println("inside tes case4");
   }
   
@@ -63,7 +89,7 @@ public class ValidateGmoOnileApp {
   @BeforeTest
   public void beforeTest() {
 	  System.out.println("inside beforeTest");
-	  Library.LaunchBrower();
+	  LaunchBrower();
   }
 
   @AfterTest
@@ -75,7 +101,7 @@ public class ValidateGmoOnileApp {
   public void beforeSuite() {
 	  System.out.println("inside beforeSuite");
 	  try {
-		Library.ReadPropertiesFile();
+		ReadPropertiesFile();
 	} catch (IOException e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();

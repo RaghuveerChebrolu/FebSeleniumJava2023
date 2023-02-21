@@ -19,7 +19,7 @@ public class Library {
 	public static WebDriver driver;
 	public static Properties objProperties;
 
-	public static void ReadPropertiesFile() throws IOException {
+	public void ReadPropertiesFile() throws IOException {
 		System.out.println("UserDir:"+System.getProperty("user.dir"));
 		File ObjFile = new File (System.getProperty("user.dir")+"//src//test//resources//Config.Properties");
 		FileInputStream ObjFileInput = new FileInputStream(ObjFile);
