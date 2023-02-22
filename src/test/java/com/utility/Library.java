@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Properties;
+import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -50,7 +51,13 @@ public class Library {
 		default:
 			System.out.println("please choose any one bowser from chrome,ie,firefox,edge");
 		}
+		
+		driver.manage().window().maximize();
 		}
 		
+	
+	public void PageLoadTimeOut() {
+		driver.manage().timeouts().pageLoadTimeout(Constants.PageLodTimeOutDuration, TimeUnit.SECONDS);
+	}
 
 }

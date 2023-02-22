@@ -25,17 +25,16 @@ public class ValidateGmoOnileApp extends Library {
   public void ValidateGmoOnlineTitle() {
 	  System.out.println("inside tes case1");
 	  driver.get(Library.objProperties.getProperty("GmoOnlineURL"));
-	  driver.manage().window().maximize();
 	  String title = Library.driver.getTitle();
 	  System.out.println("title:"+title);
-	  Assert.assertEquals(title, "Welcome to Green Mountain Outpost");
+	  Assert.assertEquals(title, objProperties.getProperty("TitleOfGmoOnlineWebApp"));
   }
   
   
   @Test(dependsOnMethods= {"ValidateGmoOnlineTitle"},priority=2)
   public void VerifyEnterGmoOnline() {
 	  driver.findElement(GmoOnlineAppPOM.EntergmoOnline).click();
-	  driver.manage().timeouts().pageLoadTimeout(30, TimeUnit.SECONDS);
+	  PageLoadTimeOut();
 	  driver.findElement(GmoOnlineAppPOM.QTY_Glasses).clear();
 	  driver.findElement(GmoOnlineAppPOM.QTY_Glasses).sendKeys(Constants.QTY_Glasses);
 	  
@@ -47,6 +46,17 @@ public class ValidateGmoOnileApp extends Library {
 	  System.out.println("inside tes case2");
 	  driver.findElement(GmoOnlineAppPOM.EntergmoOnline).click();
 	  driver.manage().timeouts().pageLoadTimeout(30, TimeUnit.SECONDS);
+	  String UnitPriceFromApp= driver.findElement(GmoOnlineAppPOM.UnitPrice).getText();
+	  System.out.println("UnitPriceFromApp:"+UnitPriceFromApp);
+	  String QTY= driver.findElement(GmoOnlineAppPOM.QTY).getText();
+	  System.out.println("QTY:"+QTY);
+	  Float CalculatedValue =  Float.parseFloat(QTY)*Float.parseFloat(UnitPriceFromApp.substring(2).trim());
+	  System.out.println("CalculatedValue:"+CalculatedValue);
+	  
+	  String TotalPriceFromApp = driver.findElement(GmoOnlineAppPOM.TotalPrice).getText();
+	  System.out.println("TotalPriceFromApp:"+TotalPriceFromApp.substring(2).trim());
+	  Float TotalPriceFromAppinFloat = Float.parseFloat(TotalPriceFromApp.substring(2).trim());
+	  Assert.assertEquals(CalculatedValue,TotalPriceFromAppinFloat);
   }
   
   @Test
