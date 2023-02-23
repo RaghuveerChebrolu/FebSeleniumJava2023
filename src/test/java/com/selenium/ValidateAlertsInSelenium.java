@@ -10,6 +10,8 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 
+import static org.testng.Assert.assertEquals;
+
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
@@ -17,6 +19,7 @@ import org.openqa.selenium.Alert;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
+import org.testng.ITestResult;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.AfterTest;
@@ -27,6 +30,7 @@ public class ValidateAlertsInSelenium extends Library {
   @Test(priority= -1)
   public void VerifyAlertPageTitle() {
 	  System.out.println("inside VerifyNormalAlert");
+	  ExtTest=ExtReports.createTest(new Object() {}.getClass().getEnclosingMethod().getName());
 	  driver.get(objProperties.getProperty("AlertURL"));
 	  PageLoadTimeOut();
 	  Assert.assertEquals(driver.getTitle(), objProperties.getProperty("TitleOFAlertsPage"), "TitleOFAlertsPage is not validated");
@@ -36,6 +40,7 @@ public class ValidateAlertsInSelenium extends Library {
   @Test()
   public void VerifyNormalAlert() {
 	  System.out.println("inside VerifyNormalAlert");
+	  ExtTest=ExtReports.createTest(new Object() {}.getClass().getEnclosingMethod().getName());
 	  driver.findElement(AlertsPOM.NormalAlert).click();
 	  Alert ObjAlert = driver.switchTo().alert();
 	  String NormalAlertText=  ObjAlert.getText();
@@ -46,6 +51,7 @@ public class ValidateAlertsInSelenium extends Library {
   @Test(priority= 1)
   public void VerifyTimerAlert() {
 	  System.out.println("inside VerifyTimerAlert");
+	  ExtTest=ExtReports.createTest(new Object() {}.getClass().getEnclosingMethod().getName());
 	  driver.findElement(AlertsPOM.TimerAlert).click();
 	  WebDriverWait wait = new WebDriverWait(driver,60);
 	  wait.until(ExpectedConditions.alertIsPresent());
@@ -54,6 +60,30 @@ public class ValidateAlertsInSelenium extends Library {
   }
   
   
+  @Test(priority=2)
+  public void VerifyConfirmAlert() {
+	  System.out.println("inside VerifyConfirmAlert");
+	  ExtTest=ExtReports.createTest(new Object() {}.getClass().getEnclosingMethod().getName());
+	  driver.findElement(AlertsPOM.ConfromAlert).click();
+	  Alert objALert = driver.switchTo().alert();
+	  objALert.dismiss();
+	  String CoformAlertResult = driver.findElement(AlertsPOM.ConfromResult).getText();
+	  Assert.assertEquals(CoformAlertResult, Constants.ConformBoxCancelResult);
+  }
+  
+  @Test(priority=3)
+  
+  public void ValidatePromptBoxAlert() {
+	  System.out.println("inside ValidatePromptBoxAlert");
+	  ExtTest=ExtReports.createTest(new Object() {}.getClass().getEnclosingMethod().getName());
+	  driver.findElement(AlertsPOM.PromptAlert).click();
+	  Alert objAlert = driver.switchTo().alert();
+	  objAlert.sendKeys(Constants.PromptBoxTextBoxInfo);
+	  objAlert.accept();
+	  String PromptBoxResult = driver.findElement(AlertsPOM.PromptResult).getText();
+	  Assert.assertEquals(PromptBoxResult, Constants.PromptBoxAlertResult,"PromptBoxAlert is not validated");
+	  
+  }
   
   
   @BeforeMethod
@@ -62,13 +92,16 @@ public class ValidateAlertsInSelenium extends Library {
   }
 
   @AfterMethod
-  public void afterMethod() {
+  public void afterMethod(ITestResult Result) {
 	  System.out.println("inside afterMethod");
+	  UpdatingResultInExtentReport(Result);
   }
 
   @BeforeClass
   public void beforeClass() {
 	  System.out.println("inside beforeClass");
+	  StartExtentReport();
+	  
   }
 
   @AfterClass
@@ -96,6 +129,8 @@ public class ValidateAlertsInSelenium extends Library {
   @AfterSuite
   public void afterSuite() {
 	  System.out.println("inside AfterSuite");
+	  FlushReport();
+	  
   }
 
 }
