@@ -82,6 +82,8 @@ public class Library {
 		}
 		
 		driver.manage().window().maximize();
+		driver.manage().timeouts().implicitlyWait(Constants.implicitWaitDuration, TimeUnit.SECONDS);
+		//Implicit wait is a global waiting mechanism applicable for all webElements declare under it.
 		}
 		
 	

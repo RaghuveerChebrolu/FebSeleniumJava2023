@@ -7,5 +7,6 @@ public static String ConformBoxOKResult = "You selected Ok";
 public static String ConformBoxCancelResult = "You selected Cancel";
 public static String PromptBoxTextBoxInfo = "Accessing Testbox Inisde PropmBox Alert";
 public static String PromptBoxAlertResult = "You entered"+PromptBoxTextBoxInfo;
+public static final int implicitWaitDuration = 20;
 
 }
