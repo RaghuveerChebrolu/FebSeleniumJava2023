@@ -8,5 +8,7 @@ public class MouseOperationsPOM {
 	
 	public static final By frame = By.xpath("//iframe");
 	public static final By DoubleClickBox = By.xpath("//span[contains(text(),'click the block')]/preceding-sibling::div");
+	public static final By Source = By.id("draggable");
+	public static final By Target = By.id("droppable");
 
 }

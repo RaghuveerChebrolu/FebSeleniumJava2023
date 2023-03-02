@@ -73,7 +73,8 @@ public class ValidateMouseOperations extends Library {
   
   @Test(priority=3)
   public void ValidateDoubleClickUsingActionClass() throws InterruptedException {
-	  System.out.println("inside ");
+	  System.out.println("inside ValidateDoubleClickUsingActionClass");
+	  ExtTest=ExtReports.createTest(new Object() {}.getClass().getEnclosingMethod().getName());
 	  driver.navigate().to(objProperties.getProperty("mouseOpeartionDoubleClick"));
 //	  Actions action = new Actions(driver); 
 //	  action.keyDown(Keys.CONTROL).sendKeys(Keys.TAB).build().perform(); //opening the URL saved. 
@@ -98,6 +99,23 @@ public class ValidateMouseOperations extends Library {
 	  Thread.sleep(3000);
 	  WebElement DoubleClickElement = driver.findElement(MouseOperationsPOM.DoubleClickBox);
 	  objActions.doubleClick(DoubleClickElement).build().perform();
+  }
+  
+  
+  @Test(priority=4)
+  public void ValidateDragAndDropOperation() {
+	  System.out.println("inside ValidateDragAndDropOperation");
+	  ExtTest=ExtReports.createTest(new Object() {}.getClass().getEnclosingMethod().getName());
+	  driver.get(objProperties.getProperty("mouseOperationDragAndDrop"));
+	  WebElement frameElement = driver.findElement(MouseOperationsPOM.frame);
+	  driver.switchTo().frame(frameElement);
+	  Actions objActions = new Actions(driver);
+	  WebElement Source = driver.findElement(MouseOperationsPOM.Source);
+	  WebElement Target = driver.findElement(MouseOperationsPOM.Target);
+	//  objActions.clickAndHold(Source);
+	//  objActions.moveToElement(Target).build().perform();
+	  objActions.dragAndDrop(Source, Target).build().perform();
+	  driver.switchTo().defaultContent();
   }
   
   
