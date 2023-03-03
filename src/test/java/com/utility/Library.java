@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
@@ -13,6 +14,7 @@ import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -138,5 +140,19 @@ public class Library {
 	public void FlushReport() {
 		ExtReports.flush();
 	}
+	
+	
+	public void SelectValueFromDropDown(List<WebElement> AllValues, String RequiredValue) {
+			// TODO Auto-generated method stub
+		System.out.println("NumberOfDropDownItems:"+AllValues.size());
+			for(int i=0; i<AllValues.size();i++) {
+				String IndividualDropDownValue = AllValues.get(i).getText();
+				if(IndividualDropDownValue.equalsIgnoreCase(RequiredValue)) {
+					AllValues.get(i).click();
+					break;
+				}
+			}
+	}
+	
 	
 }
