@@ -6,11 +6,14 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.poi.ss.usermodel.DataFormatter;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
@@ -37,6 +40,7 @@ public class Library {
 	public static ExtentHtmlReporter ExtHtmlReptr;
 	public static ExtentReports ExtReports;
 	public static ExtentTest ExtTest;
+	HashMap<String,String> hmap = new HashMap<String,String>();
 	
 	
 	/*
@@ -153,6 +157,33 @@ public class Library {
 				}
 			}
 	}
+	
+	public HashMap<String, String> ReadExcelFile(int row, XSSFSheet objXssfSheet) {
+			// TODO Auto-generated method stub
+		DataFormatter objDF = new DataFormatter();
+		hmap.put("RunMode", objXssfSheet.getRow(row).getCell(0).getStringCellValue());
+		hmap.put("TestCaseName",  objXssfSheet.getRow(row).getCell(1).getStringCellValue());
+		hmap.put("FirstName",  objXssfSheet.getRow(row).getCell(2).getStringCellValue());
+		hmap.put("LastName",  objXssfSheet.getRow(row).getCell(3).getStringCellValue());
+		hmap.put("Address",  objXssfSheet.getRow(row).getCell(4).getStringCellValue());
+		hmap.put("EmailAddress",  objXssfSheet.getRow(row).getCell(5).getStringCellValue());
+		
+		hmap.put("PhoneNumber",  objDF.formatCellValue(objXssfSheet.getRow(row).getCell(6)));
+		
+		hmap.put("Gender",  objXssfSheet.getRow(row).getCell(7).getStringCellValue());
+		hmap.put("Hobbies",  objXssfSheet.getRow(row).getCell(8).getStringCellValue());
+		hmap.put("Languages",  objXssfSheet.getRow(row).getCell(9).getStringCellValue());
+		hmap.put("Skills",  objXssfSheet.getRow(row).getCell(10).getStringCellValue());
+		hmap.put("Country",  objXssfSheet.getRow(row).getCell(11).getStringCellValue());
+		hmap.put("SelectCountry",  objXssfSheet.getRow(row).getCell(12).getStringCellValue());
+		hmap.put("DOB_YY",  objDF.formatCellValue(objXssfSheet.getRow(row).getCell(13)));
+		hmap.put("DOB_MM",  objXssfSheet.getRow(row).getCell(14).getStringCellValue());
+		hmap.put("DOB_DD",  objDF.formatCellValue(objXssfSheet.getRow(row).getCell(15)));
+		hmap.put("Password",  objXssfSheet.getRow(row).getCell(16).getStringCellValue());
+		hmap.put("confirmPassword",  objXssfSheet.getRow(row).getCell(17).getStringCellValue());													
+
+		return hmap;
+		}
 	
 	
 }
