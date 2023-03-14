@@ -40,7 +40,7 @@ public class Library {
 	public static ExtentHtmlReporter ExtHtmlReptr;
 	public static ExtentReports ExtReports;
 	public static ExtentTest ExtTest;
-	HashMap<String,String> hmap = new HashMap<String,String>();
+	public static HashMap<String,String> hmap = new HashMap<String,String>();
 	
 	
 	/*
@@ -88,7 +88,7 @@ public class Library {
 		}
 		
 		driver.manage().window().maximize();
-		driver.manage().timeouts().implicitlyWait(Constants.implicitWaitDuration, TimeUnit.SECONDS);
+		//driver.manage().timeouts().implicitlyWait(Constants.implicitWaitDuration, TimeUnit.SECONDS);
 		//Implicit wait is a global waiting mechanism applicable for all webElements declare under it.
 		}
 		

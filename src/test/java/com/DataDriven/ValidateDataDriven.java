@@ -27,6 +27,9 @@ import org.testng.annotations.BeforeTest;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.AfterSuite;
+import java.awt.AWTException;
+import java.awt.Robot;
+import java.awt.event.KeyEvent;	
 
 public class ValidateDataDriven extends Library {
 	HashMap<String,String> HMap = new HashMap<String,String>();
@@ -106,7 +109,37 @@ public class ValidateDataDriven extends Library {
 			objDataDrivenPOM.clickLanguageDropDown();
 			SelectValueFromDropDown(objDataDrivenPOM.AllLanguages,HMap.get("Languages"));
 			
+			objDataDrivenPOM.clickSkillsField();
 			
+			objDataDrivenPOM.clickSkillsDropDown();
+			SelectValueFromDropDown(objDataDrivenPOM.AllSkills, HMap.get("Skills"));
+			
+			objDataDrivenPOM.clickSelectCountryDropDown();
+			objDataDrivenPOM.SendSelectCountryFromExcel();
+			
+			try {
+				Robot objR = new Robot();
+				objR.keyPress(KeyEvent.VK_ENTER);
+				objR.keyRelease(KeyEvent.VK_ENTER);
+			} catch (AWTException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			objDataDrivenPOM.clickDOB_YYDropDown();
+			SelectValueFromDropDown(objDataDrivenPOM.AllYears,HMap.get("DOB_YY"));
+			
+			objDataDrivenPOM.clickDOB_MMDropDown();
+			SelectValueFromDropDown(objDataDrivenPOM.AllMonths,HMap.get("DOB_MM"));
+			
+			objDataDrivenPOM.clickDOB_DDropDown();
+			SelectValueFromDropDown(objDataDrivenPOM.AllDays,HMap.get("DOB_DD"));
+			
+			objDataDrivenPOM.ClearPassowrd();
+			objDataDrivenPOM.SendPassowrdFromExcel();
+			
+			objDataDrivenPOM.ClearConformpassword();
+			objDataDrivenPOM.SendConformPassowrdFromExcel();
 			
 		}
 		
