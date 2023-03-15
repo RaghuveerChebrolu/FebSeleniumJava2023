@@ -185,5 +185,10 @@ public class Library {
 		return hmap;
 		}
 	
+	public void WriteToExcelFile(int row, XSSFSheet objXssfSheet) {
+		// TODO Auto-generated method stub
+		objXssfSheet.getRow(row).createCell(18).setCellValue("Pass");
+	}
+	
 	
 }
