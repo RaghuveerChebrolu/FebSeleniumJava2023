@@ -190,5 +190,15 @@ public class Library {
 		objXssfSheet.getRow(row).createCell(18).setCellValue("Pass");
 	}
 	
+	  
+	  
+	  public void TakeScreenShot() throws IOException {
+		// TODO Auto-generated method stub
+		  File ObjFile = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
+		  File DestFile = new File(System.getProperty("user.dir")+"//ScreenShots+");
+		  FileUtils.copyFile(ObjFile, DestFile);
+		
+	}
+	
 	
 }

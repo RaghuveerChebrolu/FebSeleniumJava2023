@@ -14,6 +14,7 @@ import org.testng.annotations.BeforeClass;
 
 import static org.testng.Assert.assertEquals;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
@@ -29,6 +30,13 @@ import org.testng.annotations.BeforeTest;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.AfterSuite;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.DataFlavor;
+import java.awt.datatransfer.Transferable;
+import java.awt.AWTException;
+import java.awt.Robot;
+import java.awt.Toolkit;
+import java.awt.event.KeyEvent;
 
 public class ValidateFileUpload extends Library {
 
@@ -51,6 +59,34 @@ public class ValidateFileUpload extends Library {
 		Actions objActions = new Actions(driver);
 		WebElement element = driver.findElement(FileUploadPOM.BrowseButton);
 		objActions.click(element).build().perform();
+	
+		//performing copy operation by taking the file path
+		File objFile = new File(System.getProperty("user.dir")+"//src//test//resources//Materials//JavaDataTypes.JPG");
+		StringSelection objStringSelection = new StringSelection(objFile.toString());
+		Clipboard objClipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+		objClipboard.setContents(objStringSelection, null);
+		Transferable objTransferable = objClipboard.getContents(null);
+		if (objTransferable.isDataFlavorSupported(DataFlavor.stringFlavor)) {
+			try {
+				System.out.println(objTransferable.getTransferData(DataFlavor.stringFlavor));
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		Robot objRobot = new Robot();
+		objRobot.keyPress(KeyEvent.VK_ENTER);
+		objRobot.keyRelease(KeyEvent.VK_ENTER);
+		//performing paste operation on the file explorer application
+		
+		objRobot.keyPress(KeyEvent.VK_CONTROL);
+		objRobot.keyPress(KeyEvent.VK_V);
+		objRobot.keyRelease(KeyEvent.VK_CONTROL);
+		objRobot.keyRelease(KeyEvent.VK_V);
+		
+		objRobot.keyPress(KeyEvent.VK_ENTER);
+		objRobot.keyRelease(KeyEvent.VK_ENTER);
 	}
 
 	@BeforeMethod

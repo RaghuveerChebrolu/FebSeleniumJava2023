@@ -51,7 +51,7 @@ public class ValidateFrames extends Library {
   
   
   @Test(priority=2,dependsOnMethods = {"ValidateSingleFrame"})
-  public void ValidateFrameInsideAnotherFrame() {
+  public void ValidateFrameInsideAnotherFrame() throws IOException {
 	  System.out.println("ValidateFrameInsideAnotherFrame");
 	  ExtTest=ExtReports.createTest(new Object() {}.getClass().getEnclosingMethod().getName());
 	  WebElement OuterFrame = driver.findElement(FramesPOM.OuterIframe);
@@ -60,11 +60,12 @@ public class ValidateFrames extends Library {
 	  driver.switchTo().frame(InnerFrame);
 	  driver.findElement(FramesPOM.TextBox).sendKeys(objProperties.getProperty("IframeWithinIFrameText"));
 	  driver.switchTo().defaultContent(); //control will come out of frame to mail html document
+	  TakeScreenShot("ValidateFrameInsideAnotherFrame");
   }
   
-  
-  
-  @BeforeMethod
+
+
+@BeforeMethod
   public void beforeMethod() {
 	  System.out.println("inside beforeMethod");
   }
