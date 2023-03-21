@@ -19,9 +19,12 @@ import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
+import org.openqa.selenium.remote.CapabilityType;
+import org.openqa.selenium.remote.DesiredCapabilities;
 import org.testng.ITestResult;
 
 import com.aventstack.extentreports.ExtentReports;
@@ -77,7 +80,20 @@ public class Library {
 			break;
 		case "chrome":
 			WebDriverManager.chromedriver().setup();
-			driver= new ChromeDriver();
+			
+			File objFile = new File(System.getProperty("user.dir"));
+			String downloadFilepath = objFile.toString();
+			HashMap<String, Object> chromePrefs = new HashMap<String, Object>();
+			chromePrefs.put("profile.default_content_settings.popups", 0);
+			chromePrefs.put("download.default_directory", downloadFilepath);
+			ChromeOptions options = new ChromeOptions();
+			options.setExperimentalOption("prefs", chromePrefs);
+//			DesiredCapabilities cap = DesiredCapabilities.chrome();
+//			cap.setCapability(CapabilityType.ACCEPT_SSL_CERTS, true);
+//			cap.setCapability(ChromeOptions.CAPABILITY, options);
+//			
+			
+			driver= new ChromeDriver(options);
 			break;
 		case "ie":
 			WebDriverManager.iedriver().setup();
