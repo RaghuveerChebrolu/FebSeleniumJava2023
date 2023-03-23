@@ -2,5 +2,5 @@ Selenium 3 VS 4 : ttps://blog.testproject.io/2021/06/01/selenium-3-vs-selenium-4
 Selenium Hierarchy : https://www.softwaretestingo.com/selenium-webdriver-interface-classes-hierarchy/
 To get master in Xpath : http://pragmatictestlabs.com/2020/01/28/mastering-xpath-for-selenium-test-automation-engineers/
 Soap Vs Rest :  https://javarevisited.blogspot.com/2015/08/difference-between-soap-and-restfull-webservice-java.html
-
+REST API : https://gorest.co.in/ 
 
