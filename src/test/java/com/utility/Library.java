@@ -147,6 +147,37 @@ public class Library {
 		}
 	}
 	
+	public void UpdatingResultInExtentReport(ITestResult result,int statusCode,String Link) {
+		// TODO Auto-generated method stub
+		if(result.getStatus()==ITestResult.SUCCESS) {
+			ExtTest.log(Status.PASS, "Test Case Passed is "+result.getName());
+			if (statusCode>=200 && statusCode<=229){
+				System.out.println("Valid Link :"+Link +" with status code :"+statusCode);
+				ExtTest.log(Status.PASS, "Valid Link :"+Link +" with status code :"+statusCode);
+			}else if (statusCode>=300 && statusCode<=308){
+				System.out.println("Redirection Link :"+Link +" with status code :"+statusCode);
+				ExtTest.log(Status.FAIL, "Redirection Link :"+Link +" with status code :"+statusCode);
+			}else if (statusCode>=400 && statusCode<=499){
+				System.out.println("InValid Client Error Link :"+Link +" with status code :"+statusCode);
+				ExtTest.log(Status.FAIL, "InValid Client Error Link :"+Link +" with status code :"+statusCode);
+			}else if (statusCode>=500 && statusCode<=599){
+				System.out.println("InValid Server Error Link :"+Link +" with status code :"+statusCode);
+				ExtTest.log(Status.FAIL, "InValid Server Error Link :"+Link +" with status code :"+statusCode);
+			}
+		}else if(result.getStatus()==ITestResult.FAILURE) {
+			ExtTest.log(Status.FAIL, "Test Case Failed is "+result.getName());
+			ExtTest.log(Status.FAIL, "Test Case Failed is "+result.getThrowable());
+			try {
+				ExtTest.addScreenCaptureFromPath(TakeScreenShot(result.getName()));
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}else if(result.getStatus()==ITestResult.SKIP) {
+			ExtTest.log(Status.SKIP, "Test Case Skipped is "+result.getName());
+		}
+	}
+	
 	public static String TakeScreenShot(String testcaseName) throws IOException {
 		
 		File src = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
