@@ -19,6 +19,7 @@ import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -37,103 +38,161 @@ import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.AfterSuite;
 
 public class ValidateLinks extends Library {
-	
-	 String IndividualLink;
-	 int statusCode;
-	 
-  @Test(priority= -1)
-  public void VerifyDemoQAPageTitle() {
-	  System.out.println("inside VerifyDemoQAPageTitle");
-	  ExtTest=ExtReports.createTest(new Object() {}.getClass().getEnclosingMethod().getName());
-	  driver.get(objProperties.getProperty("BrokenlinksImages"));
-	  PageLoadTimeOut();
-	  Assert.assertEquals(driver.getTitle(), objProperties.getProperty("TileOfBrokenlinks"), "Title of DEMO QA Page is not validated");
-  }
-  
 
-  @Test(priority= 1)
-  public void ValidateWebLinksinDemoQABrokenPage() throws IOException,MalformedURLException {
-	  System.out.println("inside ValidateWebLinksinDemoQABrokenPage");
-	  ExtTest=ExtReports.createTest(new Object() {}.getClass().getEnclosingMethod().getName());
-	  LinksPOM objLinksPOM = new LinksPOM(driver);
-	  List<WebElement> AllLinks = objLinksPOM.AllLinksInDemoQABrokenPage;
-	 // List<WebElement> AllLinks1 = driver.findElements(By.tagName(a));
-	  
-	  for(int i=1;i<AllLinks.size();i++) {
-		  IndividualLink = AllLinks.get(i).getAttribute("href");
-		  System.out.println("IndividualLink:"+IndividualLink);	  
-		  try {
-			URL objUrl = new URL(IndividualLink);
-			HttpURLConnection objHUC =  (HttpURLConnection)objUrl.openConnection();
-			objHUC.connect();
-			statusCode = objHUC.getResponseCode();
-			
-			if (statusCode>=200 && statusCode<=229){
-				System.out.println("Valid Link :"+IndividualLink +" with status code :"+statusCode);
-			
-			}else if (statusCode>=300 && statusCode<=308){
-				System.out.println("Redirection Link :"+IndividualLink +" with status code :"+statusCode);
+	String IndividualLink;
+	int statusCode;
 
-			}else if (statusCode>=400 && statusCode<=499){
-				System.out.println("InValid Client Error Link :"+IndividualLink +" with status code :"+statusCode);
-			}else if (statusCode>=500 && statusCode<=599){
-				System.out.println("InValid Server Error Link :"+IndividualLink +" with status code :"+statusCode);
+	@Test(priority = 1)
+	public void ValidateWebLinksinDemoQABrokenPage_https_demoqacom() throws IOException, MalformedURLException {
+		System.out.println("inside ValidateWebLinksinDemoQABrokenPage");
+		driver.get(objProperties.getProperty("BrokenlinksImages"));
+		PageLoadTimeOut();
+		Assert.assertEquals(driver.getTitle(), objProperties.getProperty("TileOfBrokenlinks"),
+				"Title of DEMO QA Page is not validated");
+		ExtTest = ExtReports.createTest(new Object() {
+		}.getClass().getEnclosingMethod().getName());
+		LinksPOM objLinksPOM = new LinksPOM(driver);
+		List<WebElement> AllLinks = objLinksPOM.AllLinksInDemoQABrokenPage;
+
+		for (int i = 1; i < AllLinks.size(); i++) {
+			IndividualLink = AllLinks.get(i).getAttribute("href");
+			System.out.println("IndividualLink:" + IndividualLink);
+			try {
+				URL objUrl = new URL(IndividualLink);
+				HttpURLConnection objHUC = (HttpURLConnection) objUrl.openConnection();
+				objHUC.connect();
+				statusCode = objHUC.getResponseCode();
+
+				if (IndividualLink.equalsIgnoreCase("https://demoqa.com/")) {
+					LinksMap.put("individualLink", IndividualLink);
+					LinksMap.put("statusCode", String.valueOf(statusCode));
+					break;
+				}
+
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
-			
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
-	  }
-	  
-  }
-  
-  
-  @BeforeMethod
-  public void beforeMethod() {
-	  System.out.println("inside beforeMethod");
-  }
 
-  @AfterMethod
-  public void afterMethod(ITestResult Result) {
-	  System.out.println("inside afterMethod");
-	  UpdatingResultInExtentReport(Result,statusCode,IndividualLink);
-  }
+	}
+	
+	
+	@Test
+	public void ValidateWebLinksinDemoQABrokenPage_http_demoqacom() throws IOException, MalformedURLException {
+		System.out.println("inside ValidateWebLinksinDemoQABrokenPage");
+		driver.get(objProperties.getProperty("BrokenlinksImages"));
+		PageLoadTimeOut();
+		Assert.assertEquals(driver.getTitle(), objProperties.getProperty("TileOfBrokenlinks"),
+				"Title of DEMO QA Page is not validated");
+		ExtTest = ExtReports.createTest(new Object() {
+		}.getClass().getEnclosingMethod().getName());
+		LinksPOM objLinksPOM = new LinksPOM(driver);
+		List<WebElement> AllLinks = objLinksPOM.AllLinksInDemoQABrokenPage;
 
-  @BeforeClass
-  public void beforeClass() {
-	  System.out.println("inside beforeClass");
-	  StartExtentReport();
-	  
-  }
+		for (int i = 1; i < AllLinks.size(); i++) {
+			IndividualLink = AllLinks.get(i).getAttribute("href");
+			System.out.println("IndividualLink:" + IndividualLink);
+			try {
+				URL objUrl = new URL(IndividualLink);
+				HttpURLConnection objHUC = (HttpURLConnection) objUrl.openConnection();
+				objHUC.connect();
+				statusCode = objHUC.getResponseCode();
 
-  @AfterClass
-  public void afterClass() {
-	  System.out.println("inside afterClass");
-  }
+				 if (IndividualLink.equalsIgnoreCase("http://demoqa.com/")) {
+					LinksMap.put("individualLink", IndividualLink);
+					LinksMap.put("statusCode", String.valueOf(statusCode));
+					break;
+				}
 
-  @BeforeTest
-  public void beforeTest() {
-	  System.out.println("inside beforeTest");
-	  Library.LaunchBrower();
-  }
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 
-  @AfterTest
-  public void afterTest() {
-	  System.out.println("inside afterTest");
-  }
+	}
+	
+	@Test
+	public void ValidateWebLinksinDemoQABrokenPage_httptheInternet() throws IOException, MalformedURLException {
+		System.out.println("inside ValidateWebLinksinDemoQABrokenPage");
+		driver.get(objProperties.getProperty("BrokenlinksImages"));
+		PageLoadTimeOut();
+		Assert.assertEquals(driver.getTitle(), objProperties.getProperty("TileOfBrokenlinks"),
+				"Title of DEMO QA Page is not validated");
+		ExtTest = ExtReports.createTest(new Object() {
+		}.getClass().getEnclosingMethod().getName());
+		LinksPOM objLinksPOM = new LinksPOM(driver);
+		List<WebElement> AllLinks = objLinksPOM.AllLinksInDemoQABrokenPage;
 
-  @BeforeSuite
-  public void beforeSuite() throws IOException {
-	  System.out.println("inside beforeSuite");
-	  ReadPropertiesFile();
-  }
+		for (int i = 1; i < AllLinks.size(); i++) {
+			IndividualLink = AllLinks.get(i).getAttribute("href");
+			System.out.println("IndividualLink:" + IndividualLink);
+			try {
+				URL objUrl = new URL(IndividualLink);
+				HttpURLConnection objHUC = (HttpURLConnection) objUrl.openConnection();
+				objHUC.connect();
+				statusCode = objHUC.getResponseCode();
 
-  @AfterSuite
-  public void afterSuite() {
-	  System.out.println("inside AfterSuite");
-	  FlushReport();
-	  
-  }
+				 if (IndividualLink.equalsIgnoreCase("http://the-internet.herokuapp.com/status_codes/500")) {
+					LinksMap.put("individualLink", IndividualLink);
+					LinksMap.put("statusCode", String.valueOf(statusCode));
+					break;
+				}
+
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+
+	}
+
+	@BeforeMethod
+	public void beforeMethod() {
+		System.out.println("inside beforeMethod");
+	}
+
+	@AfterMethod
+	public void afterMethod(ITestResult Result) {
+		System.out.println("inside afterMethod");
+		UpdatingResultInExtentReport(Result);
+	}
+
+	@BeforeClass
+	public void beforeClass() {
+		System.out.println("inside beforeClass");
+		StartExtentReport();
+
+	}
+
+	@AfterClass
+	public void afterClass() {
+		System.out.println("inside afterClass");
+	}
+
+	@BeforeTest
+	public void beforeTest() {
+		System.out.println("inside beforeTest");
+		Library.LaunchBrower();
+	}
+
+	@AfterTest
+	public void afterTest() {
+		System.out.println("inside afterTest");
+	}
+
+	@BeforeSuite
+	public void beforeSuite() throws IOException {
+		System.out.println("inside beforeSuite");
+		ReadPropertiesFile();
+	}
+
+	@AfterSuite
+	public void afterSuite() {
+		System.out.println("inside AfterSuite");
+		FlushReport();
+
+	}
 
 }

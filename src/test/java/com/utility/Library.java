@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -44,7 +46,7 @@ public class Library {
 	public static ExtentReports ExtReports;
 	public static ExtentTest ExtTest;
 	public static HashMap<String,String> hmap = new HashMap<String,String>();
-	
+	public static HashMap<String,String> LinksMap = new HashMap<String,String>();
 	
 	/*
 	 * ExtentHtmlReporter : responsible for look and feel of the report ,we can
@@ -133,6 +135,21 @@ public class Library {
 		// TODO Auto-generated method stub
 		if(result.getStatus()==ITestResult.SUCCESS) {
 			ExtTest.log(Status.PASS, "Test Case Passed is "+result.getName());
+			int statuscode = Integer.valueOf(LinksMap.get("statusCode"));
+			String Link = LinksMap.get("individualLink");
+			if (statuscode>=200 && statuscode<=229){
+				System.out.println("Valid Link :"+Link +" with status code :"+statuscode);
+				ExtTest.log(Status.PASS, "Valid Link :"+Link +" with status code :"+statuscode);
+			}else if (statuscode>=300 && statuscode<=308){
+				System.out.println("Redirection Link :"+Link +" with status code :"+statuscode);
+				ExtTest.log(Status.INFO, "Redirection Link :"+Link +" with status code :"+statuscode);
+			}else if (statuscode>=400 && statuscode<=499){
+				System.out.println("InValid Client Error Link :"+Link +" with status code :"+statuscode);
+				ExtTest.log(Status.FAIL, "InValid Client Error Link :"+Link +" with status code :"+statuscode);
+			}else if (statuscode>=500 && statuscode<=599){
+				System.out.println("InValid Server Error Link :"+Link +" with status code :"+statuscode);
+				ExtTest.log(Status.FAIL, "InValid Server Error Link :"+Link +" with status code :"+statuscode);
+			}
 		}else if(result.getStatus()==ITestResult.FAILURE) {
 			ExtTest.log(Status.FAIL, "Test Case Failed is "+result.getName());
 			ExtTest.log(Status.FAIL, "Test Case Failed is "+result.getThrowable());
@@ -147,36 +164,7 @@ public class Library {
 		}
 	}
 	
-	public void UpdatingResultInExtentReport(ITestResult result,int statusCode,String Link) {
-		// TODO Auto-generated method stub
-		if(result.getStatus()==ITestResult.SUCCESS) {
-			ExtTest.log(Status.PASS, "Test Case Passed is "+result.getName());
-			if (statusCode>=200 && statusCode<=229){
-				System.out.println("Valid Link :"+Link +" with status code :"+statusCode);
-				ExtTest.log(Status.PASS, "Valid Link :"+Link +" with status code :"+statusCode);
-			}else if (statusCode>=300 && statusCode<=308){
-				System.out.println("Redirection Link :"+Link +" with status code :"+statusCode);
-				ExtTest.log(Status.FAIL, "Redirection Link :"+Link +" with status code :"+statusCode);
-			}else if (statusCode>=400 && statusCode<=499){
-				System.out.println("InValid Client Error Link :"+Link +" with status code :"+statusCode);
-				ExtTest.log(Status.FAIL, "InValid Client Error Link :"+Link +" with status code :"+statusCode);
-			}else if (statusCode>=500 && statusCode<=599){
-				System.out.println("InValid Server Error Link :"+Link +" with status code :"+statusCode);
-				ExtTest.log(Status.FAIL, "InValid Server Error Link :"+Link +" with status code :"+statusCode);
-			}
-		}else if(result.getStatus()==ITestResult.FAILURE) {
-			ExtTest.log(Status.FAIL, "Test Case Failed is "+result.getName());
-			ExtTest.log(Status.FAIL, "Test Case Failed is "+result.getThrowable());
-			try {
-				ExtTest.addScreenCaptureFromPath(TakeScreenShot(result.getName()));
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}else if(result.getStatus()==ITestResult.SKIP) {
-			ExtTest.log(Status.SKIP, "Test Case Skipped is "+result.getName());
-		}
-	}
+	
 	
 	public static String TakeScreenShot(String testcaseName) throws IOException {
 		
@@ -246,6 +234,43 @@ public class Library {
 		  FileUtils.copyFile(ObjFile, DestFile);
 		
 	}
+	  
+	  
+	  public void ValidateLinks(List<WebElement> allLinks, String individualLink, int statusCode) {
+		  for(int i=1;i<allLinks.size();i++) {
+			  individualLink = allLinks.get(i).getAttribute("href");
+			  System.out.println("IndividualLink:"+individualLink);	  
+			  try {
+				URL objUrl = new URL(individualLink);
+				HttpURLConnection objHUC =  (HttpURLConnection)objUrl.openConnection();
+				objHUC.connect();
+				statusCode = objHUC.getResponseCode();
+				
+				if(individualLink.equalsIgnoreCase("https://demoqa.com/")) {
+					LinksMap.put("individualLink", individualLink);
+					LinksMap.put("statusCode", String.valueOf(statusCode));
+					break;
+				}else if(individualLink.equalsIgnoreCase("http://demoqa.com/")) {
+					LinksMap.put("individualLink", individualLink);
+					LinksMap.put("statusCode", String.valueOf(statusCode));
+					break;
+				}else if(individualLink.equalsIgnoreCase("http://the-internet.herokuapp.com/status_codes/500")) {
+					LinksMap.put("individualLink", individualLink);
+					LinksMap.put("statusCode", String.valueOf(statusCode));
+					break;
+				} 
+				
+				
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		  }
+		
+			
+		}
+	  
+	
 	
 	
 }
