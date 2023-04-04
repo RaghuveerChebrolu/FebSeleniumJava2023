@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite thread-count="2" parallel="tests" name="Suite">
+	<test name="Test099">
+		<parameter name="test-name" value="mobiles"></parameter>
+		<classes>
+			<class name="com.selenium.testNGParallelTestSuite" />
+		</classes>
+	</test> <!-- Test -->
+	
+	<test  name="Test123">
+		<parameter name="test-name" value="homeAppliances"></parameter>
+		<classes>
+			<class name="com.selenium.testNGParallelTestSuite" />
+		</classes>
+	</test>
+	
+</suite> <!-- Suite -->
+

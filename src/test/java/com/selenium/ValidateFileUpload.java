@@ -62,9 +62,9 @@ public class ValidateFileUpload extends Library {
 	
 		//performing copy operation by taking the file path
 		File objFile = new File(System.getProperty("user.dir")+"//src//test//resources//Materials//JavaDataTypes.JPG");
-		StringSelection objStringSelection = new StringSelection(objFile.toString());
+		//StringSelection objStringSelection = new StringSelection(objFile.toString());
 		Clipboard objClipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
-		objClipboard.setContents(objStringSelection, null);
+		//objClipboard.setContents(objStringSelection, null);
 		Transferable objTransferable = objClipboard.getContents(null);
 		if (objTransferable.isDataFlavorSupported(DataFlavor.stringFlavor)) {
 			try {
@@ -75,18 +75,18 @@ public class ValidateFileUpload extends Library {
 			}
 		}
 		
-		Robot objRobot = new Robot();
-		objRobot.keyPress(KeyEvent.VK_ENTER);
-		objRobot.keyRelease(KeyEvent.VK_ENTER);
-		//performing paste operation on the file explorer application
-		
-		objRobot.keyPress(KeyEvent.VK_CONTROL);
-		objRobot.keyPress(KeyEvent.VK_V);
-		objRobot.keyRelease(KeyEvent.VK_CONTROL);
-		objRobot.keyRelease(KeyEvent.VK_V);
-		
-		objRobot.keyPress(KeyEvent.VK_ENTER);
-		objRobot.keyRelease(KeyEvent.VK_ENTER);
+//		Robot objRobot = new Robot();
+//		objRobot.keyPress(KeyEvent.VK_ENTER);
+//		objRobot.keyRelease(KeyEvent.VK_ENTER);
+//		//performing paste operation on the file explorer application
+//		
+//		objRobot.keyPress(KeyEvent.VK_CONTROL);
+//		objRobot.keyPress(KeyEvent.VK_V);
+//		objRobot.keyRelease(KeyEvent.VK_CONTROL);
+//		objRobot.keyRelease(KeyEvent.VK_V);
+//		
+//		objRobot.keyPress(KeyEvent.VK_ENTER);
+//		objRobot.keyRelease(KeyEvent.VK_ENTER);
 	}
 
 	@BeforeMethod
