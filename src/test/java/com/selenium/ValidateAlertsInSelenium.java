@@ -27,9 +27,9 @@ import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.AfterSuite;
 
 public class ValidateAlertsInSelenium extends Library {
-  @Test(priority= -1)
+  @Test(priority= -1,groups= {"sanity"})
   public void VerifyAlertPageTitle() {
-	  System.out.println("inside VerifyNormalAlert");
+	  System.out.println("inside VerifyAlertPageTitle");
 	  ExtTest=ExtReports.createTest(new Object() {}.getClass().getEnclosingMethod().getName());
 	  driver.get(objProperties.getProperty("AlertURL"));
 	  PageLoadTimeOut();
@@ -37,7 +37,7 @@ public class ValidateAlertsInSelenium extends Library {
   }
   
   
-  @Test()
+  @Test(groups= {"sanity"})
   public void VerifyNormalAlert() {
 	  System.out.println("inside VerifyNormalAlert");
 	  ExtTest=ExtReports.createTest(new Object() {}.getClass().getEnclosingMethod().getName());
@@ -86,30 +86,30 @@ public class ValidateAlertsInSelenium extends Library {
   }
   
   
-  @BeforeMethod
+  @BeforeMethod(groups= {"sanity"})
   public void beforeMethod() {
 	  System.out.println("inside beforeMethod");
   }
 
-  @AfterMethod
+  @AfterMethod(groups= {"sanity"})
   public void afterMethod(ITestResult Result) {
 	  System.out.println("inside afterMethod");
 	  UpdatingResultInExtentReport(Result);
   }
 
-  @BeforeClass
+  @BeforeClass(groups= {"sanity"})
   public void beforeClass() {
 	  System.out.println("inside beforeClass");
 	  StartExtentReport();
 	  
   }
 
-  @AfterClass
+  @AfterClass(groups= {"sanity"})
   public void afterClass() {
 	  System.out.println("inside afterClass");
   }
 
-  @BeforeTest
+  @BeforeTest(groups= {"sanity"})
   public void beforeTest() {
 	  System.out.println("inside beforeTest");
 	  Library.LaunchBrower();
@@ -120,13 +120,13 @@ public class ValidateAlertsInSelenium extends Library {
 	  System.out.println("inside afterTest");
   }
 
-  @BeforeSuite
+  @BeforeSuite(groups= {"sanity"})
   public void beforeSuite() throws IOException {
 	  System.out.println("inside beforeSuite");
 	  ReadPropertiesFile();
   }
 
-  @AfterSuite
+  @AfterSuite(groups= {"sanity"})
   public void afterSuite() {
 	  System.out.println("inside AfterSuite");
 	  FlushReport();

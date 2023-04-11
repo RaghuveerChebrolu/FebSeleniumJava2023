@@ -135,21 +135,21 @@ public class Library {
 		// TODO Auto-generated method stub
 		if(result.getStatus()==ITestResult.SUCCESS) {
 			ExtTest.log(Status.PASS, "Test Case Passed is "+result.getName());
-			int statuscode = Integer.valueOf(LinksMap.get("statusCode"));
-			String Link = LinksMap.get("individualLink");
-			if (statuscode>=200 && statuscode<=229){
-				System.out.println("Valid Link :"+Link +" with status code :"+statuscode);
-				ExtTest.log(Status.PASS, "Valid Link :"+Link +" with status code :"+statuscode);
-			}else if (statuscode>=300 && statuscode<=308){
-				System.out.println("Redirection Link :"+Link +" with status code :"+statuscode);
-				ExtTest.log(Status.INFO, "Redirection Link :"+Link +" with status code :"+statuscode);
-			}else if (statuscode>=400 && statuscode<=499){
-				System.out.println("InValid Client Error Link :"+Link +" with status code :"+statuscode);
-				ExtTest.log(Status.FAIL, "InValid Client Error Link :"+Link +" with status code :"+statuscode);
-			}else if (statuscode>=500 && statuscode<=599){
-				System.out.println("InValid Server Error Link :"+Link +" with status code :"+statuscode);
-				ExtTest.log(Status.FAIL, "InValid Server Error Link :"+Link +" with status code :"+statuscode);
-			}
+//			int statuscode = Integer.valueOf(LinksMap.get("statusCode"));
+//			String Link = LinksMap.get("individualLink");
+//			if (statuscode>=200 && statuscode<=229){
+//				System.out.println("Valid Link :"+Link +" with status code :"+statuscode);
+//				ExtTest.log(Status.PASS, "Valid Link :"+Link +" with status code :"+statuscode);
+//			}else if (statuscode>=300 && statuscode<=308){
+//				System.out.println("Redirection Link :"+Link +" with status code :"+statuscode);
+//				ExtTest.log(Status.INFO, "Redirection Link :"+Link +" with status code :"+statuscode);
+//			}else if (statuscode>=400 && statuscode<=499){
+//				System.out.println("InValid Client Error Link :"+Link +" with status code :"+statuscode);
+//				ExtTest.log(Status.FAIL, "InValid Client Error Link :"+Link +" with status code :"+statuscode);
+//			}else if (statuscode>=500 && statuscode<=599){
+//				System.out.println("InValid Server Error Link :"+Link +" with status code :"+statuscode);
+//				ExtTest.log(Status.FAIL, "InValid Server Error Link :"+Link +" with status code :"+statuscode);
+//			}
 		}else if(result.getStatus()==ITestResult.FAILURE) {
 			ExtTest.log(Status.FAIL, "Test Case Failed is "+result.getName());
 			ExtTest.log(Status.FAIL, "Test Case Failed is "+result.getThrowable());

@@ -3,12 +3,12 @@ package com.selenium;
 import org.testng.annotations.Test;
 
 public class TestngGroups {
-	@Test(groups = { "sanity" })
+	@Test(groups = { "sanity" },priority=2)
     public void testMethodOne() {
         System.out.println("Test method one belonging to sanity.");
     }
  
-    @Test(groups = { "sanity","Regression" })
+    @Test(priority=1,groups = { "sanity","Regression" })
     public void testMethodTwo() {
         System.out.println("Test method two belonging to sanity and Regression");
     }
@@ -23,9 +23,9 @@ public class TestngGroups {
         System.out.println("Test method Four belonging to sanity.");
     }
     
-    @Test(groups = { "Regression" })
+    @Test(groups = { "flight" })
     public void testMethodFive() {
-        System.out.println("Test method Five belonging to Regression.");
+        System.out.println("Test method Five belonging to flight.");
     }
     
     @Test(groups = { "sanity" })
