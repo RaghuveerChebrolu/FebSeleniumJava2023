@@ -4,4 +4,6 @@ To get master in Xpath : http://pragmatictestlabs.com/2020/01/28/mastering-xpath
 Soap Vs Rest :  https://javarevisited.blogspot.com/2015/08/difference-between-soap-and-restfull-webservice-java.html
 REST API : https://gorest.co.in/ 
 status codes : https://www.restapitutorial.com/httpstatuscodes.html
-
+Download the Selenium Server jar file : https://github.com/SeleniumHQ/selenium/releases/tag/selenium-4.8.0 
+drivers : https://www.selenium.dev/documentation/webdriver/getting_started/install_drivers/#1-selenium-manager-beta
+jenkins war file : https://updates.jenkins.io/download/war/
