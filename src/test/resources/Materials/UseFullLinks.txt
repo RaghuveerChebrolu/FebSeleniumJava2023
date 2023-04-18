@@ -6,4 +6,5 @@ REST API : https://gorest.co.in/
 status codes : https://www.restapitutorial.com/httpstatuscodes.html
 Download the Selenium Server jar file : https://github.com/SeleniumHQ/selenium/releases/tag/selenium-4.8.0 
 drivers : https://www.selenium.dev/documentation/webdriver/getting_started/install_drivers/#1-selenium-manager-beta
-jenkins war file : https://updates.jenkins.io/download/war/
+Jenkins war file : https://updates.jenkins.io/download/war/
+Jenkins Download : https://www.jenkins.io/download/
