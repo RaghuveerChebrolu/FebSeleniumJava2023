@@ -87,7 +87,7 @@ public class ValidateDropDowns extends Library {
   }
 
   @AfterMethod
-  public void afterMethod(ITestResult Result) {
+  public void afterMethod(ITestResult Result) throws IOException {
 	  System.out.println("inside afterMethod");
 	  UpdatingResultInExtentReport(Result);
   }

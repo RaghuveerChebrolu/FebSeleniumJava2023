@@ -92,7 +92,7 @@ public class ValidateAlertsInSelenium extends Library {
   }
 
   @AfterMethod(groups= {"sanity"})
-  public void afterMethod(ITestResult Result) {
+  public void afterMethod(ITestResult Result) throws IOException {
 	  System.out.println("inside afterMethod");
 	  UpdatingResultInExtentReport(Result);
   }
